@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/',
-          page: () => const HomeScreen(),
+          page: () =>  HomeScreen(),
         ),
       ],
     );
