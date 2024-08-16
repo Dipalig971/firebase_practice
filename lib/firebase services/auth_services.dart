@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class AuthServices {
 
@@ -11,4 +13,13 @@ class AuthServices {
         email: email, password: password);
     print(userCredential.user!.email);
   }
+
+  Future<void> signOutMethod() async {
+    await auth.signOut();
+    User? user = auth.currentUser;
+    if (user == null) {
+      Get.back();
+    }
+  }
 }
+

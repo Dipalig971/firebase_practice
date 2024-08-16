@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_practice/firebase_options.dart';
 import 'package:firebase_practice/view/home_screen.dart';
+import 'package:firebase_practice/view/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(const MyApp(),);
 }
 
 class MyApp extends StatelessWidget {
@@ -22,10 +23,14 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(
-          name: '/',
-          page: () =>  HomeScreen(),
-        ),
+        // GetPage(
+        //   name: '/',
+        //   page: () =>  const SignInScreen(),
+        // ),
+        // GetPage(
+        //   name: '/home',
+        //   page: () =>  const HomeScreen(),
+        // ),
       ],
     );
   }

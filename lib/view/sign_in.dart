@@ -1,10 +1,13 @@
-import 'package:firebase_practice/controller/home_controller.dart';
-import 'package:firebase_practice/firebase%20services/auth_services.dart';
+import 'package:firebase_practice/firebase%20services/sign_in_services.dart';
+import 'package:firebase_practice/view/new_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+import '../controller/home_controller.dart';
+
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,9 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                 ),
               ),
               const SizedBox(height: 20),
@@ -65,7 +70,9 @@ class HomeScreen extends StatelessWidget {
                   decoration: InputDecoration(
                       hintText: 'Enter Username or Email',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0))),
+                          borderRadius: BorderRadius.circular(12.0)
+                      )
+                  ),
                 ),
               ),
 
@@ -121,42 +128,41 @@ class HomeScreen extends StatelessWidget {
               //   }),
               // ),
               const SizedBox(height: 20),
-              const Center(
-                child: Text(
-                  "or",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      height: 50,
-                      width: 50,
-                      child:
-                          Image(image: AssetImage('assets/image/google.png'))),
-                  SizedBox(
-                      height: 50,
-                      width: 50,
-                      child:
-                          Image(image: AssetImage('assets/image/linkdin.png'))),
-                  SizedBox(
-                      height: 50,
-                      width: 50,
-                      child:
-                          Image(image: AssetImage('assets/image/facebook.png')))
-                ],
-              ),
-              const SizedBox(height: 20),
+              // const Center(
+              //   child: Text(
+              //     "or",
+              //     style: TextStyle(fontSize: 18),
+              //   ),
+              // ),
+              // const SizedBox(height: 20),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(
+              //         height: 50,
+              //         width: 50,
+              //         child: Image(image: AssetImage('assets/image/google.png'))),
+              //     SizedBox(
+              //         height: 50,
+              //         width: 50,
+              //         child:
+              //         Image(image: AssetImage('assets/image/linkdin.png'))),
+              //     SizedBox(
+              //         height: 50,
+              //         width: 50,
+              //         child:
+              //         Image(image: AssetImage('assets/image/facebook.png')))
+              //   ],
+              // ),
+              // const SizedBox(height: 20),
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/');
+                  Navigator.of(context).pushReplacementNamed('/home');
                 },
                 child: const Center(
                   child: Text(
-                    "Already have account? sign in",
+                    "Don't have an account ? Sign Up",
                     style: TextStyle(color: Colors.blue),
                   ),
                 ),
@@ -165,9 +171,13 @@ class HomeScreen extends StatelessWidget {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    AuthServices.authServices.createAccountUsingEmail(
+                   String status = await SignInServices.signInServices.signInMethod(
                         authController.txtEmail.text,
                         authController.txtPassword.text);
+                   Fluttertoast.showToast(msg: status);
+
+                   Get.to(const NewScreen());
+
                   },
                   child: Container(
                     height: 70,
@@ -177,7 +187,7 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20)),
                     child: const Center(
                       child: Text(
-                        'Sign Up',
+                        'Sign In',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
